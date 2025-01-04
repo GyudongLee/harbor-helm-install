@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 192.168.1.101  # NFS 서버 IP
+  share: /data           # NFS 서버 내 공유 디렉터리
+volumeBindingMode: Immediate

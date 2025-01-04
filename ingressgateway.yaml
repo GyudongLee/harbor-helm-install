@@ -1,0 +1,29 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: harbor-gateway
+  namespace: harbor
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 8080
+      name: http
+      protocol: HTTP
+    hosts:
+    - "harbor.test1.xyz"  # 여기에 실제 도메인 입력
+    tls:
+      httpsRedirect: true  # HTTP -> HTTPS 리다이렉션
+  - port:
+      number: 8443
+      name: https
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: harbor-tls  # TLS 인증서 이름
+      minProtocolVersion: TLSV1_2
+      maxProtocolVersion: TLSV1_3
+    hosts:
+    - "harbor.test1.xyz"  # 여기에 실제 도메인 입력
+
